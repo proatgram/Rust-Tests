@@ -5,7 +5,7 @@ fn main() {
 
         let mut guess = String::new();
 
-        let random_num = rand::random::<u32>();
+        let random_num = rand::random::<u8>();
 
         println!("{random_num}");
 
@@ -15,8 +15,8 @@ fn main() {
 
         println!("Your Guess: {guess}");
 
-        let guess: u32 = guess.trim()
-            .parse::<u32>()
+        let guess: u8 = guess.trim()
+            .parse::<u8>()
             .expect("Please type a number.");
 
         match guess.cmp(&random_num) {
