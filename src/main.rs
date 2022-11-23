@@ -1,32 +1,25 @@
+use std::io::Write;
+
 fn main() {
-    println!("Guess the number!");
-    loop {
-        println!("Input your guess: ");
 
-        let mut guess = String::new();
+    let mut temp = String::new();
 
-        let random_num = rand::random::<u8>();
+    print!("What tempature do you want to convert?: ");
 
-        println!("{random_num}");
+    std::io::stdout().flush().expect("Unable to flush stdout.");
 
-        std::io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
+    std::io::stdin().read_line(&mut temp).expect("Error: Unable to read from stdin.");
 
-        println!("Your Guess: {guess}");
+    let temp: f32 = match temp.trim().parse::<f32>() {
+        Ok(num) => num,
+        Err(_) => return,
+    };
 
-        let guess: u8 = guess.trim()
-            .parse::<u8>()
-            .expect("Please type a number.");
+    let temp = convert_celcius(temp);
 
-        match guess.cmp(&random_num) {
-            std::cmp::Ordering::Less => println!("HAHA TOO SMALL DING NUT!"),
-            std::cmp::Ordering::Greater => println!("HAHA TOO BIG BIGGER DING NUT!"),
-            std::cmp::Ordering::Equal =>  {
-                println!("okayy you got it. good job.");
-                break;
-            }
-        }
-    }
-    return;
+    println!("Your number is: {temp}");
+}
+
+fn convert_celcius(f_number: f32) -> f32 {
+    (f_number - 32.0) * (5.0/9.0)
 }
